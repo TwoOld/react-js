@@ -30,7 +30,7 @@ function createTextElement(text) {
 }
 /** 创建dom， 根据vdom or fiber */
 function createDom(vdom) {
-    const dom = vdom.type == "TEXT"
+    const dom = vdom.type === "TEXT"
         ? document.createTextNode("")
         : document.createElement(vdom.type)
 
@@ -50,7 +50,7 @@ function updateDom(dom, prevProps, nextProps) {
         .filter(name => !(name in nextProps))
         .forEach(name => {
             // 删除
-            if (name.slice(0, 2) == 'on') {
+            if (name.slice(0, 2) === 'on') {
                 dom.removeEventListener(name.slice(2).toLowerCase(), prevProps[name], false)
             } else {
                 dom[name] = ''
@@ -61,7 +61,7 @@ function updateDom(dom, prevProps, nextProps) {
         .filter(name => name !== "children")
         .forEach(name => {
             // 删除
-            if (name.slice(0, 2) == 'on') {
+            if (name.slice(0, 2) === 'on') {
                 dom.addEventListener(name.slice(2).toLowerCase(), nextProps[name], false)
             } else {
                 dom[name] = nextProps[name]
